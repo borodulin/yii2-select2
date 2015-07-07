@@ -1,0 +1,33 @@
+{
+    "name": "conquer/select2",
+    "description": "Yii2 Select2 widget",
+    "keywords": ["yii2", "extension", "widget", "select2"],
+    "homepage": "https://github.com/borodulin/yii2-select2",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/borodulin/yii2-select2/issues",
+        "source": "https://github.com/borodulin/yii2-select2"
+    },
+    "authors": [
+        {
+            "name": "Andrey Borodulin",
+            "email": "borodulin@gmail.com",
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+          "dev-master": "1.0.0.x-dev"
+        }
+    },
+    "require": {
+    	"php": ">=5.4.0",
+    	"yiisoft/yii2": "*",
+    	"bower-asset/select2": "~4.0.0"
+    },
+	"autoload": {
+		"psr-4": {
+			"conquer\\select2\\": ""
+		}
+	}
+}
