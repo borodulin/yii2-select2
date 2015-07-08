@@ -33,7 +33,7 @@ use conquer\select2\Select2Widget;
 use yii\helpers\ArrayHelper;
 
 $form->field($model, 'attribute')->widget(
-    Select2::className(),
+    Select2Widget::className(),
     [
         'items'=>ArrayHelper::map(Catalog::find()->all(), 'id', 'name')
     ]
@@ -82,7 +82,7 @@ class SiteController extends Controller
 // Form edit view:
 
 $form->field($model, 'attribute')->widget(
-    Select2::className(),
+    Select2Widget::className(),
     [
         'ajax' => ['site/ajax']
     ]
