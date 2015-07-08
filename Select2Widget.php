@@ -54,7 +54,7 @@ class Select2Widget extends \yii\widgets\InputWidget
      * @link https://select2.github.io/options.html
      * @var array
      */
-    public $settings;
+    public $settings = [];
     
     /**
      * Initializes the widget.
@@ -72,15 +72,25 @@ class Select2Widget extends \yii\widgets\InputWidget
         if(isset($this->language))
             $this->options['data-language'] = $this->language;
         if(isset($this->ajax)){
-            $this->options['data-ajax--url'] = $this->ajax;
-            $this->options['data-ajax--cache'] = true;
+            $this->options['data-ajax--url'] = Url::to($this->ajax);
+            $this->options['data-ajax--cache'] = 'true';
         }
         if(isset($this->placeholder))
             $this->options['data-placeholder'] = $this->placeholder;
-        if(isset($this->multiple))
-            $this->options['data-multiple'] = $this->multiple;
+        if(isset($this->multiple)){
+            $this->options['data-multiple'] = 'true';
+            $this->options['multiple'] = true;
+        }
         if(isset($this->data))
             $this->options['data-data'] = Json::encode($this->data);
+        if(!isset($this->options['class']))
+            $this->options['class'] = 'form-control';
+        if(!empty($this->multiple)||!empty($this->settings['multiple'])){
+            $name = isset($this->options['name']) ? $options['name'] : Html::getInputName($this->model, $this->attribute);
+            if(substr($name,-2)!='[]')
+                $this->options['name'] = $name.'[]';
+        }
+            
     }
     
     /**
@@ -108,7 +118,7 @@ class Select2Widget extends \yii\widgets\InputWidget
         $id = $this->options['id'];
        
         $settings = Json::encode($this->settings);
-        $js = "jQuery('$id').select2($settings);";
+        $js = "jQuery('#$id').select2($settings);";
         $view->registerJs($js);
     }
     

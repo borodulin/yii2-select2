@@ -22,7 +22,7 @@ class Select2Asset extends \yii\web\AssetBundle
     ];
     
     public $js=[
-        'js/select2.min.js',
+        'js/select2.full.min.js',
     ];
     
     public $depends= [

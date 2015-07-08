@@ -18,9 +18,15 @@ class Select2Action extends \yii\base\Action
 {
 
     /**
-     * Callback function to retrieve filtered data
-     * @example function ($term) { return ArrayHelper::Map(Model::find()->where(['param'=>$term]),'id','name'); }
-     * @var \Closure function ($term)
+     * Name of the GET parameter
+     * @var string
+     */
+    public $paramName = 'q';
+    
+    /**
+     * @var callable PHP callback function to retrieve filtered data
+     * @example function ($q) { return ['results' => [['id'=>1,'text'=>'First Element'], ['id'=>2,'text'=>'Second Element']]]; }
+     * @var \Closure function ($q)
      */
     public $dataCallback;
     
@@ -30,13 +36,16 @@ class Select2Action extends \yii\base\Action
         $this->controller->enableCsrfValidation = false;
     }
 
-    public function run($term)
+    public function run()
     {
         $request = \Yii::$app->request;
-
-        if($this->dataCallback instanceof \Closure)
-            return call_user_func($this->dataCallback, $term);        
         
-        throw new InvalidConfigException('dataCallback is not configured');
+        if (!is_callable($this->dataCallback)) {
+            throw new InvalidConfigException('"' . get_class($this) . '::dataCallback" should be a valid callback.');
+        }
+
+        $q = isset($_GET[$this->paramName]) ? $_GET[$this->paramName] : null;
+        
+        return call_user_func($this->dataCallback, $q);        
     }
 }
