@@ -11,6 +11,7 @@ use yii\helpers\Html;
 use conquer\helpers\Json;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+
 /**
  * @link https://select2.github.io
  * @author Andrey Borodulin
@@ -35,7 +36,6 @@ class Select2Widget extends \yii\widgets\InputWidget
      */
     public $ajax;
     /**
-     * 
      * @see \yii\helpers\BaseArrayHelper::map()
      * @var array
      */
@@ -51,6 +51,11 @@ class Select2Widget extends \yii\widgets\InputWidget
      */
     public $multiple;
     /**
+     * Tagging support
+     * @var boolean
+     */
+    public $tags;
+    /**
      * @link https://select2.github.io/options.html
      * @var array
      */
@@ -64,33 +69,34 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if(empty($this->items)&&empty($this->data)&&empty($this->ajax))
+        if (empty($this->items) && empty($this->data) && empty($this->ajax) && empty($this->settings['data']))
             throw new InvalidConfigException('You need to configute one of the data sources');
         
-        if(isset($this->tags))
+        if (isset($this->tags)) {
             $this->options['data-tags'] = $this->tags;
-        if(isset($this->language))
+            $this->options['multiple'] = true;
+        }
+        if (isset($this->language))
             $this->options['data-language'] = $this->language;
-        if(isset($this->ajax)){
+        if (isset($this->ajax)) {
             $this->options['data-ajax--url'] = Url::to($this->ajax);
             $this->options['data-ajax--cache'] = 'true';
         }
-        if(isset($this->placeholder))
+        if (isset($this->placeholder))
             $this->options['data-placeholder'] = $this->placeholder;
-        if(isset($this->multiple)){
+        if (isset($this->multiple)) {
             $this->options['data-multiple'] = 'true';
             $this->options['multiple'] = true;
         }
-        if(isset($this->data))
+        if (isset($this->data))
             $this->options['data-data'] = Json::encode($this->data);
-        if(!isset($this->options['class']))
+        if (!isset($this->options['class']))
             $this->options['class'] = 'form-control';
-        if(!empty($this->multiple)||!empty($this->settings['multiple'])){
+        if (!empty($this->multiple) || !empty($this->settings['multiple'])) {
             $name = isset($this->options['name']) ? $options['name'] : Html::getInputName($this->model, $this->attribute);
-            if(substr($name,-2)!='[]')
+            if (substr($name,-2)!='[]')
                 $this->options['name'] = $name.'[]';
         }
-            
     }
     
     /**
