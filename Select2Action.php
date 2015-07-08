@@ -26,7 +26,6 @@ class Select2Action extends \yii\base\Action
     /**
      * @var callable PHP callback function to retrieve filtered data
      * @example function ($q) { return ['results' => [['id'=>1,'text'=>'First Element'], ['id'=>2,'text'=>'Second Element']]]; }
-     * @var \Closure function ($q)
      */
     public $dataCallback;
     

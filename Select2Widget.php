@@ -25,7 +25,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     public $language;
     /**
      * Array data
-     * @example [['id'=> 0, 'text'=> 'enhancement'], ['id'=>  1, 'text'=> 'bug']]
+     * @example [['id'=>1, 'text'=>'enhancement'], ['id'=>2, 'text'=>'bug']]
      * @var array
      */
     public $data;
