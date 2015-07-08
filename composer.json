@@ -17,13 +17,14 @@
     ],
     "extra": {
         "branch-alias": {
-          "dev-master": "1.0.3.x-dev"
+          "dev-master": "1.1.4.x-dev"
         }
     },
     "require": {
     	"php": ">=5.4.0",
     	"yiisoft/yii2": "*",
-    	"bower-asset/select2": "~4.0.0"
+    	"bower-asset/select2": "~4.0.0",
+    	"bower-asset/select2-bootstrap-theme": "*"
     },
 	"autoload": {
 		"psr-4": {

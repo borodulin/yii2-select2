@@ -19,6 +19,11 @@ use yii\helpers\ArrayHelper;
 class Select2Widget extends \yii\widgets\InputWidget
 {
     /**
+     * Points to use Bootstrap theme
+     * @var boolean
+     */
+    public $bootstrap = true;
+    /**
      * Language code
      * @var string
      */
@@ -119,6 +124,8 @@ class Select2Widget extends \yii\widgets\InputWidget
         $view = $this->getView();
         
         Select2Asset::register($view);
+        if ($this->bootstrap)
+            Select2BootstrapAsset::register($view);
         
         $id = $this->options['id'];
        
