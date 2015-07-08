@@ -22,13 +22,15 @@ class Select2Action extends \yii\base\Action
      * @var string
      */
     public $paramName = 'q';
-    
     /**
      * @var callable PHP callback function to retrieve filtered data
      * @example function ($q) { return ['results' => [['id'=>1,'text'=>'First Element'], ['id'=>2,'text'=>'Second Element']]]; }
      */
     public $dataCallback;
     
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
