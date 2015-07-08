@@ -66,14 +66,15 @@ class SiteController extends Controller
     public function dataCallback($q)
     {
         $query = new ActiveQuery(Catalog::className());
-        return ['results' =>  $query->select([
-                'channel_id as id',
-                'channel_name as text', 
-            ])
-            ->filterWhere(['like', 'name', $q])
-            ->asArray()
-            ->limit(20)
-            ->all()
+        return [
+            'results' =>  $query->select([
+                    'catalog_id as id',
+                    'catalog_name as text', 
+                ])
+                ->filterWhere(['like', 'name', $q])
+                ->asArray()
+                ->limit(20)
+                ->all(),
         ];
     }
 }
