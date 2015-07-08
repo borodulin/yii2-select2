@@ -71,7 +71,7 @@ class SiteController extends Controller
                     'catalog_id as id',
                     'catalog_name as text', 
                 ])
-                ->filterWhere(['like', 'name', $q])
+                ->filterWhere(['like', 'catalog_name', $q])
                 ->asArray()
                 ->limit(20)
                 ->all(),
