@@ -64,7 +64,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if(empty($this->items)||empty($this->data)||empty($this->ajax))
+        if(empty($this->items)&&empty($this->data)&&empty($this->ajax))
             throw new InvalidConfigException('You need to configute one of the data sources');
         
         if(isset($this->tags))
