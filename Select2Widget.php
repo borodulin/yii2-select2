@@ -97,7 +97,7 @@ class Select2Widget extends \yii\widgets\InputWidget
         if (!isset($this->options['class']))
             $this->options['class'] = 'form-control';
         if (!empty($this->multiple) || !empty($this->settings['multiple'])) {
-            $name = isset($this->options['name']) ? $options['name'] : Html::getInputName($this->model, $this->attribute);
+            $name = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (substr($name,-2)!='[]')
                 $this->options['name'] = $name.'[]';
         }
