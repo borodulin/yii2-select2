@@ -28,7 +28,7 @@ to the ```require``` section of your `composer.json` file.
 Basic usage:
 
 ```php
-// form edit view
+// Form edit view
 use conquer\select2\Select2Widget;
 use yii\helpers\ArrayHelper;
 
