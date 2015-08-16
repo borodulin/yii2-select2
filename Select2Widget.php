@@ -80,26 +80,31 @@ class Select2Widget extends \yii\widgets\InputWidget
             $this->options['data-tags'] = $this->tags;
             $this->options['multiple'] = true;
         }
-        if (isset($this->language))
+        if (isset($this->language)) {
             $this->options['data-language'] = $this->language;
+        }
         if (isset($this->ajax)) {
             $this->options['data-ajax--url'] = Url::to($this->ajax);
             $this->options['data-ajax--cache'] = 'true';
         }
-        if (isset($this->placeholder))
+        if (isset($this->placeholder)) {
             $this->options['data-placeholder'] = $this->placeholder;
+        }
         if (isset($this->multiple)) {
             $this->options['data-multiple'] = 'true';
             $this->options['multiple'] = true;
         }
-        if (isset($this->data))
+        if (isset($this->data)) {
             $this->options['data-data'] = Json::encode($this->data);
-        if (!isset($this->options['class']))
+        }
+        if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
+        }
         if (!empty($this->multiple) || !empty($this->settings['multiple'])) {
             $name = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
-            if (substr($name,-2)!='[]')
+            if (substr($name,-2)!='[]') {
                 $this->options['name'] = $name.'[]';
+            }
         }
     }
     
@@ -124,9 +129,9 @@ class Select2Widget extends \yii\widgets\InputWidget
         $view = $this->getView();
         
         Select2Asset::register($view);
-        if ($this->bootstrap)
+        if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
-        
+        }
         $id = $this->options['id'];
        
         $settings = Json::encode($this->settings);
