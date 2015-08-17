@@ -11,6 +11,7 @@ use yii\helpers\Html;
 use conquer\helpers\Json;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use yii\base\InvalidConfigException;
 
 /**
  * @link https://select2.github.io
@@ -73,9 +74,9 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if (empty($this->items) && empty($this->data) && empty($this->ajax) && empty($this->settings['data']))
+        if (empty($this->items) && empty($this->data) && empty($this->ajax) && empty($this->settings['data'])) {
             throw new InvalidConfigException('You need to configute one of the data sources');
-        
+        }
         if (isset($this->tags)) {
             $this->options['data-tags'] = $this->tags;
             $this->options['multiple'] = true;
