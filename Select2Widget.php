@@ -45,7 +45,7 @@ class Select2Widget extends \yii\widgets\InputWidget
      * @see \yii\helpers\BaseArrayHelper::map()
      * @var array
      */
-    public $items = [];
+    public $items;
     /**
      * A placeholder value can be defined and will be displayed until a selection is made
      * @var string
@@ -74,7 +74,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if (empty($this->items) && empty($this->data) && empty($this->ajax) && empty($this->settings['data'])) {
+        if (is_null($this->items) && is_null($this->data) && empty($this->ajax) && empty($this->settings['data'])) {
             throw new InvalidConfigException('You need to configute one of the data sources');
         }
         if (isset($this->tags)) {
