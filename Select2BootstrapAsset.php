@@ -22,6 +22,7 @@ class Select2BootstrapAsset extends \yii\web\AssetBundle
     ];
     
     public $depends= [
+        'yii\bootstrap\BootstrapAsset',
         'conquer\select2\Select2Asset',
     ];
 }
