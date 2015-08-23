@@ -24,8 +24,7 @@
     	"php": ">=5.4.0",
     	"yiisoft/yii2": "*",
     	"conquer/helpers": "~2.0.7",
-    	"bower-asset/select2": "~4.0.0",
-    	"bower-asset/select2-bootstrap-theme": "*"
+    	"bower-asset/select2": "~4.0.0"
     },
 	"autoload": {
 		"psr-4": {
