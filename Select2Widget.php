@@ -115,9 +115,17 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            if (isset($this->items)) {
+                echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            } else {
+                echo Html::activeTextInput($this->model, $this->attribute, $this->options);
+            }
         } else {
-            echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
+            if (isset($this->items)) {
+                echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
+            } else {
+                echo Html::textInput($this->name, $this->value, $this->options);
+            }
         }
         $this->registerAssets();
     }
