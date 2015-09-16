@@ -145,7 +145,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             }
             foreach ($langs as $lang) {
                 $langFile = "/js/i18n/{$lang}.js";
-                if (file_exists($bandle->sourcePath.$filename)) {
+                if (file_exists($bandle->sourcePath.$langFile)) {
                     $view->registerJsFile($bandle->baseUrl.$langFile, ['depends' => Select2Asset::className()]);
                     break;
                 }
