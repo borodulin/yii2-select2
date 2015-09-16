@@ -12,6 +12,7 @@ use conquer\helpers\Json;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
+use yii;
 
 /**
  * @link https://select2.github.io
@@ -136,8 +137,20 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function registerAssets()
     {
         $view = $this->getView();
-        
-        Select2Asset::register($view);
+        $bandle = Select2Asset::register($view);
+        if ($this->language !== false) {
+            $langs[0] = $this->language ? $this->language : \Yii::$app->language;
+            if (strpos($langs[0], '-') > 0) {
+                $langs[1] = explode('-', $langs[0])[0];
+            }
+            foreach ($langs as $lang) {
+                $langFile = "/js/i18n/{$lang}.js";
+                if (file_exists($bandle->sourcePath.$filename)) {
+                    $view->registerJsFile($bandle->baseUrl.$langFile, ['depends' => Select2Asset::className()]);
+                    break;
+                }
+            }
+        }
         if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
         }
