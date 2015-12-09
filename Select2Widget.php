@@ -79,7 +79,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             throw new InvalidConfigException('You need to configure one of the data sources');
         }
         if ($this->tags) {
-            $this->options['data-tags'] = $this->tags;
+            $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
         }
         if ($this->language) {
