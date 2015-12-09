@@ -8,7 +8,6 @@
 namespace conquer\select2;
 
 use yii;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use conquer\helpers\Json;
@@ -45,7 +44,7 @@ class Select2Widget extends \yii\widgets\InputWidget
      * @see \yii\helpers\BaseArrayHelper::map()
      * @var array
      */
-    public $items;
+    public $items = [];
     /**
      * A placeholder value can be defined and will be displayed until a selection is made
      * @var string
@@ -74,9 +73,6 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if (is_null($this->items) && is_null($this->data) && is_null($this->ajax) && empty($this->settings['data'])) {
-            throw new InvalidConfigException('You need to configure one of the data sources');
-        }
         if ($this->tags) {
             $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
@@ -101,6 +97,9 @@ class Select2Widget extends \yii\widgets\InputWidget
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
         }
+        if ($this->bootstrap) {
+            $this->options['data-theme'] = 'bootstrap';
+        }
         if ($this->multiple || !empty($this->settings['multiple'])) {
             if ($this->hasModel()) {
                 $name = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
@@ -119,17 +118,9 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            if (is_array($this->items)) {
-                echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
-            } else {
-                echo Html::activeTextInput($this->model, $this->attribute, $this->options);
-            }
+            echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
         } else {
-            if (is_array($this->items)) {
-                echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
-            } else {
-                echo Html::textInput($this->name, $this->value, $this->options);
-            }
+            echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
         }
         $this->registerAssets();
     }
@@ -158,9 +149,6 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
-            if (!isset($this->settings['theme'])) {
-                $this->settings['theme'] = 'bootstrap';
-            }
         }
         $settings = Json::encode($this->settings);
         $view->registerJs("jQuery('#{$this->options['id']}').select2($settings);");
