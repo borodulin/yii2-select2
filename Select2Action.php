@@ -45,6 +45,12 @@ class Select2Action extends \yii\base\Action
     {
         $q = \Yii::$app->request->get($this->paramName);
         
-        return call_user_func($this->dataCallback, $q);        
+        $data = call_user_func($this->dataCallback, $q); 
+        
+        if (is_array($data) && (!isset($data['results']))) {
+            $data = ['results' => $data];
+        }
+        
+        return $data;
     }
 }
