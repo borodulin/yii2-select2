@@ -17,15 +17,15 @@ class Select2Asset extends \yii\web\AssetBundle
     // to specify the sourcePath property. Notice the @bower alias used.
     public $sourcePath = '@bower/select2/dist';
     
-    public $css=[
+    public $css = [
         'css/select2.min.css',
     ];
     
-    public $js=[
+    public $js = [
         'js/select2.full.min.js',
     ];
     
-    public $depends= [
+    public $depends = [
         'yii\web\JqueryAsset',
     ];
 }

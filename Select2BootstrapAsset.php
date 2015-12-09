@@ -17,11 +17,11 @@ class Select2BootstrapAsset extends \yii\web\AssetBundle
     // to specify the sourcePath property. Notice the @bower alias used.
     public $sourcePath = '@bower/select2-bootstrap-theme/dist';
     
-    public $css=[
+    public $css = [
         'select2-bootstrap.min.css',
     ];
     
-    public $depends= [
+    public $depends = [
         'yii\bootstrap\BootstrapAsset',
         'conquer\select2\Select2Asset',
     ];
