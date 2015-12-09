@@ -74,37 +74,37 @@ class Select2Widget extends \yii\widgets\InputWidget
     {
         parent::init();
         
-        if (is_null($this->items) && is_null($this->data) && empty($this->ajax) && empty($this->settings['data'])) {
+        if (is_null($this->items) && is_null($this->data) && is_null($this->ajax) && empty($this->settings['data'])) {
             throw new InvalidConfigException('You need to configure one of the data sources');
         }
-        if (isset($this->tags)) {
-            $this->options['data-tags'] = $this->tags;
+        if ($this->tags) {
+            $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
         }
-        if (isset($this->language)) {
+        if ($this->language) {
             $this->options['data-language'] = $this->language;
         }
-        if (isset($this->ajax)) {
+        if (!is_null($this->ajax)) {
             $this->options['data-ajax--url'] = Url::to($this->ajax);
             $this->options['data-ajax--cache'] = 'true';
         }
-        if (isset($this->placeholder)) {
+        if ($this->placeholder) {
             $this->options['data-placeholder'] = $this->placeholder;
         }
-        if (isset($this->multiple)) {
+        if ($this->multiple) {
             $this->options['data-multiple'] = 'true';
             $this->options['multiple'] = true;
         }
-        if (isset($this->data)) {
-            $this->options['data-data'] = Json::encode($this->data);
+        if (!empty($this->data)) {
+            $this->options['data-data'] = \yii\helpers\Json::encode($this->data);
         }
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
         }
-        if (!empty($this->multiple) || !empty($this->settings['multiple'])) {
+        if ($this->multiple || !empty($this->settings['multiple'])) {
             $name = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (substr($name,-2) != '[]') {
-                $this->options['name'] = $name.'[]';
+                $this->options['name'] = $name . '[]';
             }
         }
     }
@@ -115,13 +115,13 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            if (isset($this->items)) {
+            if (is_array($this->items)) {
                 echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
             } else {
                 echo Html::activeTextInput($this->model, $this->attribute, $this->options);
             }
         } else {
-            if (isset($this->items)) {
+            if (is_array($this->items)) {
                 echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
             } else {
                 echo Html::textInput($this->name, $this->value, $this->options);
@@ -158,11 +158,7 @@ class Select2Widget extends \yii\widgets\InputWidget
                 $this->settings['theme'] = 'bootstrap';
             }
         }
-        $id = $this->options['id'];
-       
         $settings = Json::encode($this->settings);
-        $js = "jQuery('#$id').select2($settings);";
-        $view->registerJs($js);
+        $view->registerJs("jQuery('#{$this->options['id']}').select2($settings);");
     }
-    
 }
