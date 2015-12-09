@@ -33,19 +33,17 @@ class Select2Action extends \yii\base\Action
      */
     public function init()
     {
+        if (!is_callable($this->dataCallback)) {
+            throw new InvalidConfigException('"' . get_class($this) . '::dataCallback" should be a valid callback.');
+        }
+        
         \Yii::$app->response->format = Response::FORMAT_JSON;
         $this->controller->enableCsrfValidation = false;
     }
 
     public function run()
     {
-        $request = \Yii::$app->request;
-        
-        if (!is_callable($this->dataCallback)) {
-            throw new InvalidConfigException('"' . get_class($this) . '::dataCallback" should be a valid callback.');
-        }
-
-        $q = isset($_GET[$this->paramName]) ? $_GET[$this->paramName] : null;
+        $q = \Yii::$app->request->get($this->paramName);
         
         return call_user_func($this->dataCallback, $q);        
     }
