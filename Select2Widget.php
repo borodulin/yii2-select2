@@ -76,7 +76,7 @@ class Select2Widget extends \yii\widgets\InputWidget
         parent::init();
         
         if (is_null($this->items) && is_null($this->data) && empty($this->ajax) && empty($this->settings['data'])) {
-            throw new InvalidConfigException('You need to configute one of the data sources');
+            throw new InvalidConfigException('You need to configure one of the data sources');
         }
         if (isset($this->tags)) {
             $this->options['data-tags'] = $this->tags;
@@ -154,6 +154,9 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
+            if (!isset($this->settings['theme'])) {
+                $this->settings['theme'] = 'bootstrap';
+            }
         }
         $id = $this->options['id'];
        
