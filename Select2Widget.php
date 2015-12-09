@@ -7,12 +7,11 @@
 
 namespace conquer\select2;
 
-use yii\helpers\Html;
-use conquer\helpers\Json;
-use yii\helpers\Url;
-use yii\helpers\ArrayHelper;
-use yii\base\InvalidConfigException;
 use yii;
+use yii\base\InvalidConfigException;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use conquer\helpers\Json;
 
 /**
  * @link https://select2.github.io
@@ -104,7 +103,7 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         if (!empty($this->multiple) || !empty($this->settings['multiple'])) {
             $name = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
-            if (substr($name,-2)!='[]') {
+            if (substr($name,-2) != '[]') {
                 $this->options['name'] = $name.'[]';
             }
         }
@@ -141,13 +140,14 @@ class Select2Widget extends \yii\widgets\InputWidget
         $bandle = Select2Asset::register($view);
         if ($this->language !== false) {
             $langs[0] = $this->language ? $this->language : \Yii::$app->language;
-            if (strpos($langs[0], '-') > 0) {
-                $langs[1] = explode('-', $langs[0])[0];
+            if (($pos = strpos($langs[0], '-')) > 0) {
+                // If "en-us" is not found, try to use "en".
+                $langs[1] = substr($langs[0], 0, $pos);
             }
             foreach ($langs as $lang) {
                 $langFile = "/js/i18n/{$lang}.js";
-                if (file_exists($bandle->sourcePath.$langFile)) {
-                    $view->registerJsFile($bandle->baseUrl.$langFile, ['depends' => Select2Asset::className()]);
+                if (file_exists($bandle->sourcePath . $langFile)) {
+                    $view->registerJsFile($bandle->baseUrl . $langFile, ['depends' => Select2Asset::className()]);
                     break;
                 }
             }
