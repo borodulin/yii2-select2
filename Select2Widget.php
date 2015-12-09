@@ -154,6 +154,9 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
+            if (!isset($this->settings['theme'])) {
+                $this->settings['theme'] = 'bootstrap';
+            }
         }
         $id = $this->options['id'];
        
