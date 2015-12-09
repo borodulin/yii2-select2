@@ -12,7 +12,6 @@ use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use conquer\helpers\Json;
-use yii\helpers\ArrayHelper;
 
 /**
  * @link https://select2.github.io
