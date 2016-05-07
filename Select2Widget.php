@@ -65,14 +65,14 @@ class Select2Widget extends \yii\widgets\InputWidget
      * @var array
      */
     public $settings = [];
-    
+
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
-        
+
         if ($this->tags) {
             $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
@@ -111,7 +111,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             }
         }
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -124,7 +124,7 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         $this->registerAssets();
     }
-    
+
     /**
      * Registers Assets
      */
