@@ -8,20 +8,19 @@
 namespace conquer\select2;
 
 /**
- * @link http://select2.github.io/select2-bootstrap-theme/
+ * https://github.com/panorama-ed/maximize-select2-height
  */
-class Select2BootstrapAsset extends \yii\web\AssetBundle
+class Select2MaximizeAsset extends \yii\web\AssetBundle
 {
     // The files are not web directory accessible, therefore we need
     // to specify the sourcePath property. Notice the @conquer alias used.
     public $sourcePath = '@conquer/select2/assets';
-
-    public $css = [
-        'select2-bootstrap.min.css',
+    
+    public $js=[
+        'maximize-select2-height.min.js',
     ];
-
-    public $depends = [
-        'yii\bootstrap\BootstrapAsset',
+    
+    public $depends= [
         'conquer\select2\Select2Asset',
     ];
 }
