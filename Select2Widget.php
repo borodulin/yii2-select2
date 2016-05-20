@@ -68,6 +68,13 @@ class Select2Widget extends \yii\widgets\InputWidget
     public $settings = [];
     
     /**
+     * If value is integer, then it passed as "cushion" parameter 
+     * @link https://github.com/panorama-ed/maximize-select2-height
+     * @var mixed
+     */
+    public $maximize = false;
+    
+    /**
      * @inheritdoc
      */
     public function init()
@@ -132,6 +139,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function registerAssets()
     {
         $view = $this->getView();
+        /* @var $bandle yii\web\AssetBundle */
         $bandle = Select2Asset::register($view);
         if ($this->language !== false) {
             $langs[0] = $this->language ? $this->language : \Yii::$app->language;
@@ -151,6 +159,18 @@ class Select2Widget extends \yii\widgets\InputWidget
             Select2BootstrapAsset::register($view);
         }
         $settings = Json::encode($this->settings);
-        $view->registerJs("jQuery('#{$this->options['id']}').select2($settings);");
+        $js = "jQuery('#{$this->options['id']}').select2($settings)";
+        if ($this->maximize) {
+            Select2MaximizeAsset::register($view);
+            if (is_integer($this->maximize)) {
+                $this->maximize = "{cushion: $this->maximize}";
+            } elseif (is_array($this->maximize)) {
+                $this->maximize = Json::encode($this->maximize);
+            } else {
+                $this->maximize = '{}';
+            }
+            $js .= ".maximizeSelect2Height($this->maximize)";
+        }
+        $view->registerJs("$js;");
     }
 }

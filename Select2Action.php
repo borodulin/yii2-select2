@@ -27,7 +27,7 @@ class Select2Action extends \yii\base\Action
      * @example function ($q) { return ['results' => [['id'=>1,'text'=>'First Element'], ['id'=>2,'text'=>'Second Element']]]; }
      */
     public $dataCallback;
-    
+
     /**
      * @inheritdoc
      */
@@ -36,7 +36,7 @@ class Select2Action extends \yii\base\Action
         if (!is_callable($this->dataCallback)) {
             throw new InvalidConfigException('"' . get_class($this) . '::dataCallback" should be a valid callback.');
         }
-        
+
         \Yii::$app->response->format = Response::FORMAT_JSON;
         $this->controller->enableCsrfValidation = false;
     }
@@ -44,13 +44,13 @@ class Select2Action extends \yii\base\Action
     public function run()
     {
         $q = \Yii::$app->request->get($this->paramName);
-        
-        $data = call_user_func($this->dataCallback, $q); 
-        
+
+        $data = call_user_func($this->dataCallback, $q);
+
         if (is_array($data) && (!isset($data['results']))) {
             $data = ['results' => $data];
         }
-        
+
         return $data;
     }
 }
