@@ -25,7 +25,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     public $bootstrap = true;
     /**
      * Language code
-     * Set False to disable 
+     * Set False to disable
      * @var string | boolean
      */
     public $language;
@@ -74,6 +74,11 @@ class Select2Widget extends \yii\widgets\InputWidget
      */
     public $maximize = false;
     
+    /**
+     * @var string[] the JavaScript event handlers.
+     */
+    public $events = array();
+
     /**
      * @inheritdoc
      */
@@ -170,6 +175,9 @@ class Select2Widget extends \yii\widgets\InputWidget
                 $this->maximize = '{}';
             }
             $js .= ".maximizeSelect2Height($this->maximize)";
+        }
+        foreach ($this->events as $event => $handler) {
+            $js .= '.on("'.$event.'", ' . new yii\web\JsExpression($handler) . ')';
         }
         $view->registerJs("$js;");
     }
