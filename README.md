@@ -91,7 +91,9 @@ $form->field($model, 'attribute')->widget(
 
 Jquery Events:
 
-Array the Select2 JQuery events. You must define events in event-name => event-function format. All events will be stacked in the sequence. Refer the [plugin options documentation ](https://select2.github.io/options.html). for details. For example:
+Array the Select2 JQuery events. You must define events in event-name => event-function format. All events will be stacked in the sequence. Refer the [plugin options documentation ](https://select2.github.io/options.html) for details. 
+
+For example:
 
 ```php
 
