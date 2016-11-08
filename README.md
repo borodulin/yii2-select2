@@ -99,7 +99,7 @@ $form->field($model, 'attribute')->widget(
     Select2Widget::className(),
     [
         'events' => [
-            'select2:open" => "function() { log('open'); }",
+            'select2:open' => "function() { log('open'); }",
         ]
     ]
 );
