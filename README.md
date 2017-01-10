@@ -108,6 +108,34 @@ $form->field($model, 'attribute')->widget(
 
 ```
 
+Initialization of multiple selection in case of using ajax and custom templates.
+
+```php
+<?= $form->field($model, 'multipleItems')->widget(Select2Widget::className(), [
+    'options' => [
+        'placeholder' => 'Select items ...',
+    ],
+    'ajax' => Url::to(['items/search']),
+    'multiple' => true,
+    'items' => ArrayHelper::map($model->multipleItems, 'id', 'text'),
+    // Initial data the same, as returned results from Ajax request items/search
+    'data' => $model->multipleItems,
+    'settings' => [
+        'ajax' => ['delay' => 250],
+        'minimumInputLength' => 1,
+        'minimumResultsForSearch' => -1,
+        /** 
+         * Handlebars here is used as example of using template engine
+         * If you will not provide initial data,
+         *   custom templates will not access additional info of items
+         */
+        'templateResult' => 'js:Handlebars.compile($("#template-result").html())',
+        'templateSelection' => 'js:Handlebars.compile($("#template-selection").html())',
+        'escapeMarkup' => 'js:function(markup){ return markup; }',
+    ],
+]) ?>
+```
+
 ## License
 
 **conquer/select2** is released under the MIT License. See the bundled `LICENSE` for details.
