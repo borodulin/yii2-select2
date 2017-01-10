@@ -117,7 +117,7 @@ Initialization of multiple selection in case of using ajax and custom templates.
     'ajax' => Url::to(['items/search']),
     'multiple' => true,
     'items' => ArrayHelper::map($model->multipleItems, 'id', 'text'),
-    // Initial data the same, as returned results from Ajax request item/search
+    // Initial data the same, as returned results from Ajax request items/search
     'data' => $model->multipleItems,
     'settings' => [
         'ajax' => ['delay' => 250],
