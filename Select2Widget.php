@@ -74,6 +74,11 @@ class Select2Widget extends \yii\widgets\InputWidget
     public $maximize = false;
     
     /**
+     * @var string[] the JavaScript event handlers.
+     */
+    public $events = [];
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -169,6 +174,9 @@ class Select2Widget extends \yii\widgets\InputWidget
                 $this->maximize = '{}';
             }
             $js .= ".maximizeSelect2Height($this->maximize)";
+        }
+        foreach ($this->events as $event => $handler) {
+            $js .= '.on("'.$event.'", ' . new yii\web\JsExpression($handler) . ')';
         }
         $view->registerJs("$js;");
     }
