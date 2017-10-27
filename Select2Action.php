@@ -7,21 +7,23 @@
 
 namespace conquer\select2;
 
+use yii\base\Action;
 use yii\web\Response;
 use yii\base\InvalidConfigException;
 
 /**
- *
+ * Class Select2Action
+ * @package conquer\select2
  * @author Andrey Borodulin
  */
-class Select2Action extends \yii\base\Action
+class Select2Action extends Action
 {
-
     /**
      * Name of the GET parameter
      * @var string
      */
     public $paramName = 'q';
+
     /**
      * @var callable PHP callback function to retrieve filtered data
      * @example function ($q) { return ['results' => [['id'=>1,'text'=>'First Element'], ['id'=>2,'text'=>'Second Element']]]; }
@@ -41,6 +43,9 @@ class Select2Action extends \yii\base\Action
         $this->controller->enableCsrfValidation = false;
     }
 
+    /**
+     * @return array|mixed
+     */
     public function run()
     {
         $q = \Yii::$app->request->get($this->paramName);

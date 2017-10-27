@@ -7,13 +7,16 @@
 
 namespace conquer\select2;
 
+use yii\web\AssetBundle;
+
 /**
- * https://github.com/panorama-ed/maximize-select2-height
+ * Class Select2MaximizeAsset
+ * @package conquer\select2
+ * @link https://github.com/panorama-ed/maximize-select2-height
+ * @author Andrey Borodulin
  */
-class Select2MaximizeAsset extends \yii\web\AssetBundle
+class Select2MaximizeAsset extends AssetBundle
 {
-    // The files are not web directory accessible, therefore we need
-    // to specify the sourcePath property. Notice the @conquer alias used.
     public $sourcePath = '@conquer/select2/assets';
     
     public $js=[

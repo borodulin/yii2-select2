@@ -7,14 +7,16 @@
 
 namespace conquer\select2;
 
+use yii\web\AssetBundle;
+
 /**
- * @author Andrey Borodulin
+ * Class Select2Asset
+ * @package conquer\select2
  * @link https://select2.github.io/
+ * @author Andrey Borodulin
  */
-class Select2Asset extends \yii\web\AssetBundle
+class Select2Asset extends AssetBundle
 {
-    // The files are not web directory accessible, therefore we need
-    // to specify the sourcePath property. Notice the @bower alias used.
     public $sourcePath = '@bower/select2/dist';
 
     public $css = [
