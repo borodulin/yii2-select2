@@ -17,8 +17,8 @@
     ],
     "extra": {
         "branch-alias": {
-          "dev-master": "1.5.3.x-dev",
-          "dev-release": "1.4.4.x-dev"
+          "dev-master": "1.5.5.x-dev",
+          "dev-release": "1.4.5.x-dev"
         }
     },
     "require": {
