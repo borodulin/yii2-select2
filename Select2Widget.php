@@ -7,72 +7,85 @@
 
 namespace conquer\select2;
 
+use conquer\helpers\Json;
 use yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use conquer\helpers\Json;
+use yii\web\JsExpression;
+use yii\widgets\InputWidget;
 
 /**
+ * Class Select2Widget
+ * @package conquer\select2
  * @link https://select2.github.io
  * @author Andrey Borodulin
  */
-class Select2Widget extends \yii\widgets\InputWidget
+class Select2Widget extends InputWidget
 {
     /**
      * Points to use Bootstrap theme
      * @var boolean
      */
     public $bootstrap = true;
+
     /**
      * Language code
-     * @var string
+     * Set False to disable
+     * @var string | boolean
      */
     public $language;
+
     /**
      * Array data
      * @example [['id'=>1, 'text'=>'enhancement'], ['id'=>2, 'text'=>'bug']]
      * @var array
      */
     public $data;
+
     /**
      * You can use Select2Action to provide AJAX data
      * @see \yii\helpers\BaseUrl::to()
      * @var array|string
      */
     public $ajax;
+
     /**
      * @see \yii\helpers\BaseArrayHelper::map()
      * @var array
      */
     public $items = [];
+
     /**
      * A placeholder value can be defined and will be displayed until a selection is made
      * @var string
      */
     public $placeholder;
+
     /**
      * Multiple select boxes
      * @var boolean
      */
     public $multiple;
+
     /**
      * Tagging support
      * @var boolean
      */
     public $tags;
+
     /**
      * @link https://select2.github.io/options.html
      * @var array
      */
     public $settings = [];
-    
+
     /**
-     * If value is integer, then it passed as "cushion" parameter 
+     * If value is integer, then it passed as "cushion" parameter
      * @link https://github.com/panorama-ed/maximize-select2-height
      * @var mixed
      */
     public $maximize = false;
-    
+
     /**
      * @var string[] the JavaScript event handlers.
      */
@@ -84,7 +97,7 @@ class Select2Widget extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
-        
+
         if ($this->tags) {
             $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
@@ -104,7 +117,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             $this->options['multiple'] = true;
         }
         if (!empty($this->data)) {
-            $this->options['data-data'] = \yii\helpers\Json::encode($this->data);
+            $this->options['data-data'] = Json::encode($this->data);
         }
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
@@ -123,7 +136,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             }
         }
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -136,17 +149,17 @@ class Select2Widget extends \yii\widgets\InputWidget
         }
         $this->registerAssets();
     }
-    
+
     /**
      * Registers Assets
      */
     public function registerAssets()
     {
         $view = $this->getView();
-        /* @var $bandle yii\web\AssetBundle */
+        /** @var yii\web\AssetBundle $bandle */
         $bandle = Select2Asset::register($view);
         if ($this->language !== false) {
-            $langs[0] = $this->language ? $this->language : \Yii::$app->language;
+            $langs[0] = $this->language ? $this->language : Yii::$app->language;
             if (($pos = strpos($langs[0], '-')) > 0) {
                 // If "en-us" is not found, try to use "en".
                 $langs[1] = substr($langs[0], 0, $pos);
@@ -176,7 +189,7 @@ class Select2Widget extends \yii\widgets\InputWidget
             $js .= ".maximizeSelect2Height($this->maximize)";
         }
         foreach ($this->events as $event => $handler) {
-            $js .= '.on("'.$event.'", ' . new yii\web\JsExpression($handler) . ')';
+            $js .= '.on("' . $event . '", ' . new JsExpression($handler) . ')';
         }
         $view->registerJs("$js;");
     }
