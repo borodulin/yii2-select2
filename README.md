@@ -1,27 +1,27 @@
-Select2 widget for Yii2 framework
-=================
+# Select2 widget for Yii2 framework
+
+[![Latest Version](https://img.shields.io/packagist/v/conquer/select2.svg)](https://packagist.org/packages/conquer/select2)
+[![Total Downloads](https://img.shields.io/packagist/dt/conquer/select2.svg)](https://packagist.org/packages/conquer/select2)
+[![License](https://img.shields.io/packagist/l/conquer/select2.svg)](LICENSE)
 
 ## Description
 
 Select2 gives you a customizable select box with support for searching, tagging, remote data sets, infinite scrolling, and many other highly used options.
 For more information please visit [Select2](https://select2.github.io/) 
 
+## Requirements
+
+- PHP 7.4 or 8.x
+- Yii 2.0.6 or newer (2.0.x)
+- [asset-packagist](https://asset-packagist.org) repository configured in your application's `composer.json` (standard for Yii2 app templates)
+
 ## Installation
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/). 
+Install the extension via [Composer](https://getcomposer.org):
 
-To install, either run
-
+```bash
+composer require conquer/select2:^1.6
 ```
-$ php composer.phar require conquer/select2 "*"
-```
-or add
-
-```
-"conquer/select2": "*"
-```
-
-to the ```require``` section of your `composer.json` file.
 
 ## Usage
 
@@ -138,4 +138,4 @@ Initialization of multiple selection in case of using ajax and custom templates.
 
 ## License
 
-**conquer/select2** is released under the MIT License. See the bundled `LICENSE` for details.
+**conquer/select2** is released under the MIT License. See the bundled [`LICENSE`](LICENSE) for details.
