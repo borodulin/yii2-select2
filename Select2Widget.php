@@ -9,7 +9,9 @@ namespace conquer\select2;
 
 use conquer\helpers\Json;
 use yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
+use yii\helpers\Json as DataJson;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\widgets\InputWidget;
@@ -23,10 +25,13 @@ use yii\widgets\InputWidget;
 class Select2Widget extends InputWidget
 {
     /**
-     * Points to use Bootstrap theme
-     * @var boolean
+     * Use the Bootstrap 3 theme (select2-bootstrap-theme).
+     * null (default) enables it only when both yiisoft/yii2-bootstrap and
+     * bower-asset/select2-bootstrap-theme are installed.
+     * true requires them, false disables the theme.
+     * @var boolean|null
      */
-    public $bootstrap = true;
+    public $bootstrap;
 
     /**
      * Language code
@@ -38,6 +43,7 @@ class Select2Widget extends InputWidget
     /**
      * Array data
      * @example [['id'=>1, 'text'=>'enhancement'], ['id'=>2, 'text'=>'bug']]
+     * Encoded as plain JSON: strings with the "js:" prefix are not turned into JavaScript.
      * @var array
      */
     public $data;
@@ -98,6 +104,8 @@ class Select2Widget extends InputWidget
     {
         parent::init();
 
+        $this->bootstrap = $this->resolveBootstrap();
+
         if ($this->tags) {
             $this->options['data-tags'] = 'true';
             $this->options['multiple'] = true;
@@ -117,7 +125,7 @@ class Select2Widget extends InputWidget
             $this->options['multiple'] = true;
         }
         if (!empty($this->data)) {
-            $this->options['data-data'] = Json::encode($this->data);
+            $this->options['data-data'] = DataJson::encode($this->data);
         }
         if (!isset($this->options['class'])) {
             $this->options['class'] = 'form-control';
@@ -135,6 +143,23 @@ class Select2Widget extends InputWidget
                 $this->options['name'] = $this->name = $name . '[]';
             }
         }
+    }
+
+    /**
+     * @return bool whether the Bootstrap theme is used
+     * @throws InvalidConfigException
+     */
+    protected function resolveBootstrap()
+    {
+        $available = class_exists('yii\bootstrap\BootstrapAsset')
+            && is_dir(Yii::getAlias('@bower/select2-bootstrap-theme/dist', false) ?: '');
+        if ($this->bootstrap === null) {
+            return $available;
+        }
+        if ($this->bootstrap && !$available) {
+            throw new InvalidConfigException('The Bootstrap theme requires "yiisoft/yii2-bootstrap" and "bower-asset/select2-bootstrap-theme". Install them or set "bootstrap" to false.');
+        }
+        return (bool)$this->bootstrap;
     }
 
     /**
@@ -159,15 +184,19 @@ class Select2Widget extends InputWidget
         /** @var yii\web\AssetBundle $bandle */
         $bandle = Select2Asset::register($view);
         if ($this->language !== false) {
+            $langs = [];
             $langs[0] = $this->language ? $this->language : Yii::$app->language;
             if (($pos = strpos($langs[0], '-')) > 0) {
                 // If "en-us" is not found, try to use "en".
                 $langs[1] = substr($langs[0], 0, $pos);
             }
             foreach ($langs as $lang) {
+                if (!preg_match('/^[a-zA-Z]{2,3}(-[a-zA-Z0-9]+)*$/', $lang)) {
+                    continue;
+                }
                 $langFile = "/js/i18n/{$lang}.js";
                 if (file_exists($bandle->sourcePath . $langFile)) {
-                    $view->registerJsFile($bandle->baseUrl . $langFile, ['depends' => Select2Asset::className()]);
+                    $view->registerJsFile($bandle->baseUrl . $langFile, ['depends' => Select2Asset::class]);
                     break;
                 }
             }
@@ -175,7 +204,7 @@ class Select2Widget extends InputWidget
         if ($this->bootstrap) {
             Select2BootstrapAsset::register($view);
         }
-        $settings = Json::encode($this->settings);
+        $settings = empty($this->settings) ? '{}' : Json::encode($this->settings);
         $js = "jQuery('#{$this->options['id']}').select2($settings)";
         if ($this->maximize) {
             Select2MaximizeAsset::register($view);
