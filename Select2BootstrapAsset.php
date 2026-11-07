@@ -10,9 +10,8 @@ namespace conquer\select2;
 use yii\web\AssetBundle;
 
 /**
- * Class Select2BootstrapAsset
- * @package conquer\select2
- * @link http://select2.github.io/select2-bootstrap-theme/
+ * Bootstrap 3 theme for Select2
+ * @link https://github.com/select2/select2-bootstrap-theme
  * @author Andrey Borodulin
  */
 class Select2BootstrapAsset extends AssetBundle
@@ -24,7 +23,18 @@ class Select2BootstrapAsset extends AssetBundle
     ];
 
     public $depends = [
-        'yii\bootstrap\BootstrapAsset',
         'conquer\select2\Select2Asset',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        // load after Bootstrap when the Yii Bootstrap extension is used
+        if (class_exists('yii\bootstrap\BootstrapAsset')) {
+            array_unshift($this->depends, 'yii\bootstrap\BootstrapAsset');
+        }
+    }
 }

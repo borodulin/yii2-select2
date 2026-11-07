@@ -7,7 +7,8 @@
 ## Description
 
 Select2 gives you a customizable select box with support for searching, tagging, remote data sets, infinite scrolling, and many other highly used options.
-For more information please visit [Select2](https://select2.github.io/) 
+For more information please visit [Select2](https://select2.org/).
+Bootstrap 3, 4 and 5 themes are supported.
 
 ## Requirements
 
@@ -20,7 +21,7 @@ For more information please visit [Select2](https://select2.github.io/)
 Install the extension via [Composer](https://getcomposer.org):
 
 ```bash
-composer require conquer/select2:^1.7
+composer require conquer/select2:^1.8
 ```
 
 ## Usage
@@ -142,15 +143,34 @@ Initialization of multiple selection in case of using ajax and custom templates.
 
 ## Bootstrap theme
 
-The [select2-bootstrap-theme](https://github.com/select2/select2-bootstrap-theme) (Bootstrap 3) is used automatically
-when it is installed together with `yiisoft/yii2-bootstrap`. It is no longer a dependency of this package
-(it has only beta releases, which broke installation in projects with `"minimum-stability": "stable"`):
+A Bootstrap theme is used automatically when its package is installed. The Bootstrap version follows the installed
+Yii Bootstrap extension (`yiisoft/yii2-bootstrap` → 3, `yii2-bootstrap4` → 4, `yii2-bootstrap5` → 5);
+set `'bsVersion' => 5` on the widget to choose it explicitly.
 
-```bash
-composer require yiisoft/yii2-bootstrap:~2.0 "bower-asset/select2-bootstrap-theme:^0.1@beta"
-```
+| Bootstrap | Theme package | Select2 theme |
+|---|---|---|
+| 5 | `composer require npm-asset/select2-bootstrap-5-theme:^1.3` | `bootstrap-5` |
+| 4 | `composer require npm-asset/ttskch--select2-bootstrap4-theme:^1.5` | `bootstrap4` |
+| 3 | `composer require "bower-asset/select2-bootstrap-theme:^0.1@beta"` | `bootstrap` |
 
-Set `'bootstrap' => false` to disable the theme, `'bootstrap' => true` to require it.
+The Bootstrap 3 theme has only beta releases, so it is not a dependency of this package
+(it broke installation in projects with `"minimum-stability": "stable"`).
+
+Set `'bootstrap' => false` to disable the theme, `'bootstrap' => true` to require it
+(a missing theme package is reported with an `InvalidConfigException`).
+
+## Language
+
+The Select2 translation for `language` (or `Yii::$app->language`, `ru-RU` falls back to `ru`) is registered
+and passed to Select2. Set `'language' => false` to disable it.
+
+## Upgrading to 1.8
+
+- With Bootstrap 4 or 5 installed, the matching theme is used once its package is installed
+  (previously only the Bootstrap 3 theme was supported). `'bootstrap' => true` now requires the theme of `bsVersion`.
+- The Bootstrap 3 theme no longer requires `yiisoft/yii2-bootstrap`: it is enabled whenever its package is installed.
+- The translation found for the application language is now always passed to Select2
+  (before, Select2 used it only when `<html lang>` matched).
 
 ## License
 

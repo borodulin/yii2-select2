@@ -22,17 +22,18 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.7.x-dev"
+            "dev-master": "1.8.x-dev"
         }
     },
     "require": {
         "php": "^7.4 || ^8.0",
         "yiisoft/yii2": "^2.0.6",
-        "conquer/helpers": "^2.0.7",
+        "conquer/helpers": "^2.2.1",
         "bower-asset/select2": "^4.0.0"
     },
     "suggest": {
-        "yiisoft/yii2-bootstrap": "Bootstrap 3 theme for the widget, together with bower-asset/select2-bootstrap-theme",
+        "npm-asset/select2-bootstrap-5-theme": "Bootstrap 5 theme for the widget",
+        "npm-asset/ttskch--select2-bootstrap4-theme": "Bootstrap 4 theme for the widget",
         "bower-asset/select2-bootstrap-theme": "Bootstrap 3 theme for the widget (only beta releases exist: require it as ^0.1@beta)"
     },
     "autoload": {
